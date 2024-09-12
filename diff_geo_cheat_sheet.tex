@@ -1,0 +1,268 @@
+\documentclass[11pt]{book}
+\RequirePackage{amssymb, amsfonts, amsmath, latexsym, verbatim, xspace, setspace}
+\RequirePackage{tikz, pgflibraryplotmarks}
+\usetikzlibrary{shapes.geometric,arrows,fit,matrix,positioning}
+\tikzset
+{
+	treenode/.style = {circle, draw=black, align=center,
+		minimum size=1cm, anchor=center},
+}
+
+
+
+\usepackage[none]{hyphenat}
+\usepackage[margin=1in]{geometry}
+\usepackage{algorithm}
+\usepackage{cancel}
+\usepackage{multirow}
+\usepackage{framed}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{qtree}
+\usepackage{venndiagram}
+\usepackage{mathtools}
+\usetikzlibrary{datavisualization}
+\usetikzlibrary{datavisualization.formats.functions}
+\newtheorem*{theorem*}{Theorem}
+\usepackage{pgfplots}
+\usepackage{ulem}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage[noend]{algpseudocode}
+\usetikzlibrary{arrows,automata,positioning}
+\usetikzlibrary{arrows,positioning,shapes,fit,calc}
+\usetikzlibrary{chains,fit,shapes}
+\usepackage{color}   %May be necessary if you want to color links
+\usepackage{hyperref}
+\usepackage[most]{tcolorbox}
+\hypersetup{
+	colorlinks=true, %set true if you want colored links
+	linktoc=all,     %set to all if you want both sections and subsections linked
+	linkcolor=black,  %choose some color if you want links to stand out
+}
+
+\pgfdeclarelayer{background}
+\pgfsetlayers{background,main}
+
+\usepackage{color}
+\usepackage{bold-extra}
+\usepackage{dsfont}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{
+	language=python, % Replace
+	basicstyle={\footnotesize\ttfamily},
+	keywordstyle={\bfseries\color{blue}},
+	commentstyle=\color{dkgreen},
+	stringstyle={\slshape\color{mauve}},
+	numberstyle=\footnotesize,
+	numbers=left,
+	showstringspaces=false,
+	breaklines=true,
+	tabsize=4,
+	frame=tb
+}
+
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\newcommand{\rowSpace}{1.2ex}
+\newcommand{\Tr}{\text{Tr}}
+\newcommand{\On}{\text{O}(n)}
+\newcommand{\SOn}{\text{SO}(n)}
+\newcommand{\un}{\text{U}(n)}
+\newcommand{\sun}{\text{SU}(n)}
+\newcommand{\una}{\mathfrak{u(n)}}
+\newcommand{\suna}{\mathfrak{su(n)}}
+\singlespacing
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{lemma}
+
+\newtcbtheorem[auto counter,number within=section]{theo}%
+{Example}{fonttitle=\bfseries\upshape, fontupper=\slshape,
+	arc=0mm, colback=black!5!white,colframe=black!75!black}{theorem}
+\begin{document} 
+	
+	\vspace*{20mm}
+	
+	\begin{center}
+		\Huge{Differential Geometry: A Cheat Sheet}\\
+		
+		\vspace{10mm}
+		
+		\Huge{MATH 583}\\
+		
+	\end{center}
+	
+	
+	\newpage 
+	
+	\tableofcontents
+	
+	\newpage
+	
+	\chapter{Background Theory}
+	\section{Manifolds and their properties}
+	
+	A topological manifold is a second countable hausdorff space. There is a lot of structure that this immediately implies. Here are some useful ones in no particular order
+	
+	\begin{itemize}
+		\item Locally connected
+		\item Locally path connected
+		\item Locally compact
+		\item has a countable basis of coordinate balls (neighborhood $U$ homeomorphic to a ball in $\mathbb{R}^n$)
+		\item Every open subset of an $n$ manifold is an $n$ manifold
+		\item Every point on a manifold with boundary is either on the boundary or interior
+		\item The interior of a $n$ manifold with boundary is a manifold with boundary $n$  
+	\end{itemize}
+	
+	
+	\section{Theorems: Topological}
+	
+	Handy theorems that are of a topological flavor, useful for proving things about manifolds or proving something is a manifold
+	
+	\subsection{Continuous Functions}
+	\begin{theorem}
+		Let $S \subset M$ then the inclusion map $S \hookrightarrow M$ is continuous.
+	\end{theorem}
+	
+	\begin{theorem}
+		If $X_1,..,X_n$ are topological spaces then the projection $\pi_i: X_1 \times ... \times X_n \rightarrow X_i$ is continuous
+	\end{theorem}
+	
+	\begin{theorem}
+		The map $f: X_i \rightarrow X_1 \times ... \times X_n$ such that $f(x) = (x_1,..,x_{i-1},x,x_{i+1}, ... , x_n)$ is a topological 
+		embedding.
+	\end{theorem}
+	
+	\begin{theorem}
+		Let $f_i: X_i \rightarrow Y_i$ be maps then the product map is 
+		\begin{align*}
+			f_1 \times ... \times f_n: X_1 \times ... \times X_n \rightarrow Y_1 \times ... \times Y_n
+			f_1 \times ... \times f_n (x) = (f_1(x), ..., f_n(x))
+		\end{align*}
+		If the maps are all continuous the product is too, if they are homeomorphisms so is the product.
+	\end{theorem}
+	
+	\begin{theorem}
+		If each $X_i$ is hausdorff or second countable then $X_1 \times ... \times X_n$ are too.
+	\end{theorem}
+	
+	\begin{theorem}
+		Subspaces of any hausdorff or second countable space are too. 
+	\end{theorem}
+	
+	
+	\subsection{Embeddings}
+	An embedding is an injective continuous map that is a homeomorphism onto its image some useful facts
+	
+	\begin{theorem}
+		Let $S$ be a subspace of $M$ then $S \hookrightarrow M$ is an embedding
+	\end{theorem}
+	
+	\begin{theorem}
+		A continuous injective map that is either open or closed is a topological embedding.
+	\end{theorem}
+	
+	\begin{theorem}
+		Let $U \subset \mathbb{R}^N$ be open and $f: U \rightarrow \mathbb{R}^k$ any continuous map, then defint the graph
+		\begin{align*}
+			\Gamma(f) = \{(x,y) = (x_1, ... , x_n, y_1, ... , y_n) : x \in U, y = f(x)\}
+		\end{align*}
+		with the subspace topology of $\mathbb{R}^{n+k}$. Then the graph is a $n$ manifold and more specifically is homeomorphic to $U$
+	\end{theorem}
+	
+	\begin{theorem}
+		Suppose $f: X \rightarrow Y$ is open or closed and injective then it is an embedding.
+	\end{theorem}
+	
+	
+	\subsection{Quotient Spaces}
+	
+	\begin{theorem}
+		If $P$ is second countable and $M$ is a locally euclidean hausdorff space that is a quotient of $P$ then $M$ is a manifold.
+	\end{theorem}
+	
+	\begin{theorem}
+		If $q: X \rightarrow Y$ is a surjective continuous map that is also an open
+		or closed map, then it is a quotient map.
+	\end{theorem}
+	
+	\begin{theorem}
+		Suppose $f: X \rightarrow Y$ is open or closed, and surjective then it is a quotient map.
+	\end{theorem}
+	
+	\begin{theorem}
+		Suppose $q_1: X \rightarrow Y_1$ and
+		$q_2: X \rightarrow Y_2$ are quotient maps that make the same identifications $q_1(x) = q_1(x')$
+		if and only if $q_2(x) = q_2(x')$. Then there is a unique homeomorphism between $Y_1, Y_2$.
+	\end{theorem}
+	
+	\begin{theorem}
+		Suppose $\pi: X \rightarrow X/\sim$ is open, then $X/\sim$ is hausdorff if and only if $R = \{(x,y) | y \sim x\}$ is closed in $X \times X$
+	\end{theorem}
+	
+	
+	\section{Calculus for maps from $\mathbb{R}^n \rightarrow \mathbb{R}^m$}
+	
+	\begin{theorem}
+		Implicit function theorem: Let $f: \mathbb{R}^{n+m} \rightarrow \mathbb{R}^m$  be a continuously differentiable function with coordinates $(\mathbf{x},\mathbf{y}) = (x_1,...,x_n,y_1,...,y_m)$and fix a point
+		$(\mathbf{a},\mathbf{b}) = (a_1,...,a_n,b_1,...,b_m)$ with $f(\mathbf{a},\mathbf{b}) = \mathbf{0}$.
+		Define the jacobian 
+		\begin{align*}
+			J_{f,y}(a,b) = \begin{bmatrix}
+				\frac{\partial f_1}{\partial y_1}(\mathbf{a},\mathbf{b})  & .. & \frac{\partial f_1}{y_n}(\mathbf{a},\mathbf{b})\\
+				\cdots & ... & \cdots\\
+				\frac{\partial f_m}{\partial y_1}(\mathbf{a},\mathbf{b})  & .. & \frac{\partial f_m}{y_n}(\mathbf{a},\mathbf{b})\\
+			\end{bmatrix}
+		\end{align*}
+		Then if det$(J_{f,y}(\mathbf{a},\mathbf{b})) \neq 0$ there exists an open set $U \subset \mathbb{R}^n$ containing $\mathbf{a}$ such that there is a function $g: U \rightarrow \mathbb{R}^m$ that sends $g(\mathbf{a}) = \mathbf{b}$ and $f(x,g(x)) = \mathbf{0}$ for all $x \in U$
+	\end{theorem}
+	
+	\begin{theorem}
+		Inverse Function theorem: Let $U$ be an open subset of $\mathbb{R}^n$ and $f: U \rightarrow \mathbb{R}^n$ a $C^r$ mapping. If $a \in U$ and $DF(a) = \neq 0$ then there exists a neighborhood $V$ of $a$ such that 
+		\begin{enumerate}
+			\item $f: U \rightarrow V$ is invertible and $C^r$
+			\item $f^{-1}: V \rightarrow U$ is $C^r$
+			\item $D(f^{-1})(x) = (DF(x))^{-1}$
+		\end{enumerate}
+	\end{theorem}
+	\begin{theorem}
+		Let $U \subseteq \mathbb{R}^n$ and $f: U \rightarrow f(U)$ be $C^\infty$. Then $f$ is a diffeomorphism if and only if $f$ is injective and $DF$ is nonzero at every point in $U$.
+	\end{theorem}
+	
+	\section{Linear Algebruh}
+	SVD, change of coordinates goes here ...
+	
+	
+	\chapter{Smooth Manifolds}
+	
+	Throughout our study some proof techniques and ideas recur, he we collect them attempting to state the abstract idea with the minimal example of how to use it.
+	
+	\section{Recipes and Topoi}
+	In the case of (smooth) manifolds we have access to coordinates, it is often easier to show than a set $A$ is open or closed by constructing a continuous function $f$ who's inverse image of some open or closed set is $A$. This also gives really easy proofs of something being a smooth manifold if $A$ is an open subset of a space already known to be a smooth manifold.
+	
+	
+	
+	
+	\begin{theo}{Proving $GL_n$ is Open}{ex2.1}
+		$GL_n(F)$ is an open subset of $M_n(\mathbb{F})$ because $\det: M_n(\mathbb{F}) \rightarrow \mathbb{R}$ is a polynomial in the entries of a matrix and hence continuous. A matrix is in $GL_n$ if and only if $\det \neq 0$ so 
+		\begin{align*}
+			\text{det}^{-1}(\mathbb{R} - \{0\}) = GL_n
+		\end{align*} 
+		and the real line with a point removed is open, so $GL_n$ is an open subset of $\mathbb{R}^{n^2}$ and hence a smooth manifold. 
+	\end{theo}
+	
+	
+	
+	
+	
+	
+	
+	
+\end{document}
